@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospice Demystified — Dr. Mike Haas Talk Portal</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #1c2330;
+      --border: #30363d;
+      --accent: #4e9af1;
+      --accent2: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --purple: #bc8cff;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #0d1f3c 0%, #0d2a4a 50%, #0d1f3c 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 32px 24px 24px;
+      text-align: center;
+    }
+    header .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    header .subtitle {
+      color: var(--accent2);
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .meta-pill {
+      background: rgba(78,154,241,0.12);
+      border: 1px solid rgba(78,154,241,0.3);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 13px;
+      color: var(--accent2);
+    }
+    .meta-pill strong { color: #fff; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* Timeline */
+    .timeline-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .tl-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      position: relative;
+    }
+    .tl-item.urgent { border-color: var(--yellow); }
+    .tl-item.done { border-color: var(--green); }
+    .tl-item.main { border-color: var(--accent); }
+    .tl-date { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .tl-item.urgent .tl-date { color: var(--yellow); }
+    .tl-item.done .tl-date { color: var(--green); }
+    .tl-item.main .tl-date { color: var(--accent); }
+    .tl-label { font-size: 13px; color: var(--text); }
+
+    /* Section headings */
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent2);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 36px 0 16px;
+    }
+    h2 .icon { margin-right: 8px; }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+
+    /* Cards grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .card p, .card li { font-size: 14px; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card .highlight {
+      background: rgba(78,154,241,0.1);
+      border-left: 3px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    /* Narrative arc */
+    .arc-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 8px 0 16px;
+    }
+    .arc-step {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .arc-num {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Slide sections */
+    .section-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.15s;
+    }
+    .section-header:hover { background: var(--bg3); }
+    .section-header.open { border-bottom-color: var(--border); }
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .s1 .section-tag { background: rgba(248,81,73,0.15); color: #f85149; }
+    .s2 .section-tag { background: rgba(78,154,241,0.15); color: var(--accent2); }
+    .s3 .section-tag { background: rgba(63,185,80,0.15); color: var(--green); }
+    .s4 .section-tag { background: rgba(188,140,255,0.15); color: var(--purple); }
+    .s5 .section-tag { background: rgba(210,153,34,0.15); color: var(--yellow); }
+    .s6 .section-tag { background: rgba(78,154,241,0.15); color: #79c0ff; }
+    .section-title { font-weight: 700; font-size: 15px; flex: 1; }
+    .section-slides { color: var(--muted); font-size: 13px; }
+    .toggle-icon { color: var(--muted); font-size: 13px; transition: transform 0.2s; }
+    .section-body { padding: 16px 20px; display: none; }
+    .section-body.open { display: block; }
+
+    .slide-item {
+      border-left: 3px solid var(--border);
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      background: var(--bg3);
+      border-radius: 0 6px 6px 0;
+    }
+    .slide-num {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .slide-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+    .slide-bullets { padding-left: 18px; }
+    .slide-bullets li { font-size: 13px; color: var(--text); margin-bottom: 3px; }
+    .slide-source { font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
+    .framework-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-top: 8px;
+    }
+    .fw-row { display: flex; gap: 10px; margin-bottom: 5px; align-items: flex-start; }
+    .fw-key { background: var(--accent); color: #fff; font-weight: 700; font-size: 13px; border-radius: 4px; padding: 1px 7px; flex-shrink: 0; min-width: 28px; text-align: center; }
+    .fw-key.green { background: var(--green); }
+    .fw-val { font-size: 13px; }
+
+    /* Literature table */
+    .lit-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .lit-table th { background: var(--bg3); color: var(--muted); font-weight: 700; text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .lit-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .lit-table tr:last-child td { border-bottom: none; }
+    .lit-table tr:hover td { background: var(--bg3); }
+    .lit-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: rgba(78,154,241,0.15);
+      color: var(--accent2);
+    }
+
+    /* Disease trigger table */
+    .trigger-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .trigger-table th { background: var(--bg3); color: var(--muted); font-weight: 700; text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .trigger-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .trigger-table tr:last-child td { border-bottom: none; }
+    .trigger-table tr:hover td { background: var(--bg3); }
+    .dx-tag { display: inline-block; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
+
+    /* Questions */
+    .q-list { counter-reset: q-counter; }
+    .q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .q-num {
+      background: var(--yellow);
+      color: #000;
+      font-weight: 900;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .q-text { font-size: 14px; }
+    .q-text strong { color: var(--accent2); }
+
+    /* Resources */
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .res-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .res-card:hover { border-color: var(--accent); background: var(--bg3); }
+    .res-name { font-weight: 700; font-size: 14px; color: var(--accent2); margin-bottom: 4px; }
+    .res-desc { font-size: 13px; color: var(--muted); }
+    .res-url { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* Big quote */
+    .big-quote {
+      background: linear-gradient(135deg, rgba(78,154,241,0.08), rgba(78,154,241,0.03));
+      border: 1px solid rgba(78,154,241,0.25);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text);
+      margin: 16px 0 24px;
+      line-height: 1.7;
+    }
+
+    /* Checklist */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li .ck { color: var(--yellow); flex-shrink: 0; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Talk Prep Portal</div>
+  <h1>🩺 Hospice Demystified</h1>
+  <div class="subtitle">Dr. Michael Haas, MD — LAFP 79th Annual Assembly & Exhibition</div>
+  <div class="meta-bar">
+    <div class="meta-pill">📅 <strong>July 23, 2026</strong> · 3:30–4:30 PM CST</div>
+    <div class="meta-pill">📍 Sandestin Golf & Beach Resort, Destin FL</div>
+    <div class="meta-pill">👥 Family Physicians · CME Credit</div>
+    <div class="meta-pill">🎯 <strong>28–32 slides</strong> · 60 min</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- TIMELINE -->
+  <h2><span class="icon">📆</span>Key Dates</h2>
+  <!-- DOWNLOAD -->
+  <div style="margin-bottom: 32px;">
+    <a href="/Hospice_Demystified_DrMikeHaas_LAFP2026.pptx"
+       download
+       style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#1a7a7a,#0d5a5a);border:1px solid #2aa8a8;border-radius:10px;padding:16px 24px;text-decoration:none;color:#fff;font-weight:700;font-size:16px;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+      <span style="font-size:28px;">📥</span>
+      <span>
+        <span style="display:block;font-size:17px;">Download PowerPoint Presentation</span>
+        <span style="display:block;font-size:12px;font-weight:400;color:#a0d8d8;margin-top:2px;">Hospice_Demystified_DrMikeHaas_LAFP2026.pptx · Ready to edit in PowerPoint or Google Slides</span>
+      </span>
+    </a>
+  </div>
+
+  <div class="timeline-strip">
+    <div class="tl-item urgent">
+      <div class="tl-date">⚠️ May 22, 2026</div>
+      <div class="tl-label">Speaker forms due to Ragan LeBlanc (LAFP)</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Now → June</div>
+      <div class="tl-label">Draft slides · gather literature · Dr. Mike Q&amp;A</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Week of June 16</div>
+      <div class="tl-label">Final slide review with Dr. Mike</div>
+    </div>
+    <div class="tl-item urgent">
+      <div class="tl-date">⚠️ June 23, 2026</div>
+      <div class="tl-label">PowerPoint due → rleblanc@lafp.org</div>
+    </div>
+    <div class="tl-item main">
+      <div class="tl-date">🎤 July 23, 2026</div>
+      <div class="tl-label">TALK — 3:30 PM CST, Sandestin</div>
+    </div>
+  </div>
+
+  <!-- NARRATIVE ARC -->
+  <h2><span class="icon">🧭</span>Narrative Arc</h2>
+  <div class="big-quote">
+    "Hospice is not giving up. It's giving more — more comfort, more dignity, more time for what matters. Your referral is what makes that possible."
+  </div>
+  <div class="arc-steps">
+    <div class="arc-step"><div class="arc-num">1</div>Frame the problem (underuse + late referral)</div>
+    <div class="arc-step"><div class="arc-num">2</div>Teach identification (who, when, how)</div>
+    <div class="arc-step"><div class="arc-num">3</div>Teach communication (how to have the conversation)</div>
+    <div class="arc-step"><div class="arc-num">4</div>Teach the continuum (palliative care ≠ hospice)</div>
+    <div class="arc-step"><div class="arc-num">5</div>Teach the end-of-life moment (clinical + human)</div>
+    <div class="arc-step"><div class="arc-num">6</div>Demystify the system (what hospice actually IS)</div>
+    <div class="arc-step"><div class="arc-num">7</div>Empower action (you can do this in your practice)</div>
+  </div>
+
+  <!-- SLIDE SKELETON -->
+  <h2><span class="icon">📑</span>Slide Skeleton (Click to Expand)</h2>
+
+  <!-- Section 1 -->
+  <div class="section-block s1">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 1</span>
+      <span class="section-title">The Problem: Hospice is Underused</span>
+      <span class="section-slides">Slides 1–5</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 1 — Title</div>
+        <div class="slide-title">"Hospice Demystified"</div>
+        <ul class="slide-bullets">
+          <li>Dr. Michael Haas, MD | LAFP 79th Annual Assembly | July 2026</li>
+          <li>Optional: powerful, quiet image — a hand hold, a sunset, something human</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 2 — Opening Hook</div>
+        <div class="slide-title">The Case That Didn't Have to End That Way</div>
+        <ul class="slide-bullets">
+          <li>Clinical vignette: patient dies in ICU on a vent, family in shock, no one had the conversation</li>
+          <li>OR stat hook: "Nearly half of Medicare patients who died enrolled in hospice for 7 days or less. Many for just 3."</li>
+          <li>Question to the room: <em>"How many of you have had a patient you wish you'd referred sooner?"</em></li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 3 — The Utilization Problem</div>
+        <div class="slide-title">The Numbers Don't Lie</div>
+        <ul class="slide-bullets">
+          <li>~50% of Medicare decedents use hospice (NHPCO 2024)</li>
+          <li>Median length of stay: ~18 days — many enroll in the final week</li>
+          <li>~1 in 4 patients dies within 7 days of enrollment</li>
+          <li><strong>The gap:</strong> Patients who could benefit for months are only getting days</li>
+        </ul>
+        <div class="slide-source">Source: NHPCO Facts & Figures 2024; MedPAC 2025 Report to Congress Ch. 9</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 4 — Why Does This Happen?</div>
+        <div class="slide-title">The Barriers Are Real — But Fixable</div>
+        <ul class="slide-bullets">
+          <li><strong>Physician:</strong> prognosis uncertainty, fear of "taking away hope," discomfort with the conversation</li>
+          <li><strong>System:</strong> late referral culture, confusing eligibility, fragmented care</li>
+          <li><strong>Patient/Family:</strong> "hospice = giving up," fear of morphine, cultural factors</li>
+          <li>Key insight: The #1 reason for late referral is physician hesitation — <em>we</em> are the fix</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 5 — What's at Stake</div>
+        <div class="slide-title">The Counterintuitive Truth</div>
+        <ul class="slide-bullets">
+          <li>Early hospice → better pain control, better family satisfaction, fewer hospitalizations</li>
+          <li><strong>Temel et al., NEJM 2010:</strong> Early palliative care in metastatic NSCLC → better QoL + longer survival (11.6 vs. 8.9 months)</li>
+          <li>Patients who get palliative care earlier sometimes live <em>longer</em></li>
+        </ul>
+        <div class="slide-source">Temel JS et al. N Engl J Med. 2010;363(8):733–742.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section-block s2">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 2</span>
+      <span class="section-title">Objective 1: Identifying the Right Patients</span>
+      <span class="section-slides">Slides 6–10</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 6 — Medicare Hospice Eligibility: The Basics</div>
+        <ul class="slide-bullets">
+          <li>Physician certifies: prognosis ≤ 6 months if illness runs its normal course</li>
+          <li>Patient elects comfort-focused care (waives curative treatment for terminal illness)</li>
+          <li>Two 90-day benefit periods, then unlimited 60-day periods — recertification required</li>
+          <li><strong>Myth to bust:</strong> "Once on hospice you can't get off." — False. Patients can and do revoke.</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 7 — The Surprise Question</div>
+        <div class="slide-title" style="font-style:italic; color: #58a6ff;">"Would you be surprised if this patient died within the next 12 months?"</div>
+        <ul class="slide-bullets">
+          <li>If the answer is <strong>No</strong> → this patient deserves a palliative care conversation NOW</li>
+          <li>Simple, validated, evidence-supported screening tool — not a death sentence, a conversation trigger</li>
+          <li>Combining with Palliative Care Screening Tool (PCST) improves 12-month mortality prediction</li>
+        </ul>
+        <div class="slide-source">PCNOW Fast Fact #360; BMJ Supportive & Palliative Care 2022;12:211</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 8 — Disease-Specific Referral Triggers</div>
+        <table class="trigger-table" style="margin-top:8px; background: var(--bg); border-radius:6px; overflow:hidden;">
+          <thead><tr><th>Condition</th><th>Referral Triggers</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dx-tag" style="background:rgba(248,81,73,0.15);color:#f85149">Cancer</span></td><td>Stage IV + declining performance status</td></tr>
+            <tr><td><span class="dx-tag" style="background:rgba(78,154,241,0.15);color:#58a6ff">CHF</span></td><td>NYHA Class III/IV despite optimal therapy; repeated hospitalizations</td></tr>
+            <tr><td><span class="dx-tag" style="background:rgba(210,153,34,0.15);color:#d29922">COPD</span></td><td>FEV1 &lt;30%, home O₂, declining function</td></tr>
+            <tr><td><span class="dx-tag" style="background:rgba(188,140,255,0.15);color:#bc8cff">Dementia</span></td><td>FAST Stage 7, unable to walk/dress/bathe, recurrent infections</td></tr>
+            <tr><td><span class="dx-tag" style="background:rgba(63,185,80,0.15);color:#3fb950">Renal</span></td><td>GFR &lt;15 declining, refusing dialysis</td></tr>
+            <tr><td><span class="dx-tag" style="background:rgba(248,81,73,0.15);color:#f85149">Liver</span></td><td>Child-Pugh C, refractory ascites, hepatic encephalopathy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 9 — Prognostic Tools</div>
+        <ul class="slide-bullets">
+          <li><strong>PPS (Palliative Performance Scale):</strong> functional status → mortality correlation</li>
+          <li><strong>ECOG Performance Status:</strong> widely familiar, maps to prognosis</li>
+          <li><strong>PCST:</strong> combines with Surprise Question for better accuracy</li>
+          <li>Use the tools + trust your gut + ask the Surprise Question — together they outperform any one alone</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 10 — Non-Cancer Diagnoses (Often Missed)</div>
+        <ul class="slide-bullets">
+          <li>CHF, COPD, dementia, renal failure, liver cirrhosis — all hospice-eligible</li>
+          <li>Family physicians own these patients — often the ONLY one who can initiate this</li>
+        </ul>
+        <div style="margin-top:8px;padding:10px 14px;background:rgba(78,154,241,0.08);border-left:3px solid var(--accent);border-radius:4px;font-size:14px;font-style:italic;">
+          "You are the gatekeeper. No one else in their care team has the relationship you have."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section-block s3">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 3</span>
+      <span class="section-title">Objective 2: The Conversation</span>
+      <span class="section-slides">Slides 11–15</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 11 — Why We Avoid the Conversation</div>
+        <ul class="slide-bullets">
+          <li>"I don't want to take away hope"</li>
+          <li>"The family isn't ready"</li>
+          <li>"I don't have time"</li>
+          <li>"They'll think I'm giving up on them"</li>
+          <li>Reality: Studies consistently show patients with serious illness want more prognostic information, not less</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 12 — Palliative Care ≠ Giving Up</div>
+        <ul class="slide-bullets">
+          <li>Reframe: it's adding a layer of support, not removing treatment</li>
+          <li>Can be concurrent with disease-directed therapy</li>
+          <li>Language that works: <em>"We're going to focus on making sure you feel as good as possible, for as long as possible."</em></li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 13 — REMAP Framework (Goals of Care)</div>
+        <div class="framework-box">
+          <div class="fw-row"><div class="fw-key">R</div><div class="fw-val"><strong>Reframe</strong> — "I want to make sure your care matches your priorities"</div></div>
+          <div class="fw-row"><div class="fw-key">E</div><div class="fw-val"><strong>Expect emotion</strong> — make space; don't rush past the feeling</div></div>
+          <div class="fw-row"><div class="fw-key">M</div><div class="fw-val"><strong>Map out patient goals</strong> — "What's most important to you?"</div></div>
+          <div class="fw-row"><div class="fw-key">A</div><div class="fw-val"><strong>Align with goals</strong> — "Based on what you've told me…"</div></div>
+          <div class="fw-row"><div class="fw-key">P</div><div class="fw-val"><strong>Propose a plan</strong> — connect their goals to a concrete next step</div></div>
+        </div>
+        <div class="slide-source">Childers JW et al. JCO Oncology Practice. 2017. PMID: 28445100</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 14 — SPIKES for Delivering Bad News</div>
+        <div class="framework-box">
+          <div class="fw-row"><div class="fw-key green">S</div><div class="fw-val"><strong>Setting</strong> — private, seated, no interruptions</div></div>
+          <div class="fw-row"><div class="fw-key green">P</div><div class="fw-val"><strong>Perception</strong> — what does the patient already know/believe?</div></div>
+          <div class="fw-row"><div class="fw-key green">I</div><div class="fw-val"><strong>Invitation</strong> — does the patient want information? how much?</div></div>
+          <div class="fw-row"><div class="fw-key green">K</div><div class="fw-val"><strong>Knowledge</strong> — share news clearly, without jargon, in chunks</div></div>
+          <div class="fw-row"><div class="fw-key green">E</div><div class="fw-val"><strong>Emotions</strong> — respond to emotions first, before more information</div></div>
+          <div class="fw-row"><div class="fw-key green">S</div><div class="fw-val"><strong>Strategy/Summary</strong> — next steps, plan, follow-up</div></div>
+        </div>
+        <div class="slide-source">Baile WF et al. Oncologist. 2000;5(4):302–311.</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 15 — Practical Office Tips</div>
+        <ul class="slide-bullets">
+          <li>Schedule a dedicated "goals of care" visit — don't tack it onto a 15-min med check</li>
+          <li>Invite family to be present</li>
+          <li>Use teach-back: "Can you tell me in your own words what we talked about today?"</li>
+          <li>Document: shared decision-making conversation, patient preferences, surrogate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section-block s4">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 4</span>
+      <span class="section-title">Objective 3: Palliative Care Across the Continuum</span>
+      <span class="section-slides">Slides 16–19</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 16 — The Critical Distinction [DIAGRAM SLIDE]</div>
+        <ul class="slide-bullets">
+          <li>Timeline: Diagnosis ──────────────────── Death</li>
+          <li><strong>Palliative care:</strong> starts at diagnosis, runs the full course</li>
+          <li><strong>Hospice:</strong> specific program, begins when curative intent ends + prognosis ≤ 6 months</li>
+          <li><em>"Hospice is one type of palliative care. Palliative care is not just hospice."</em></li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 17 — Symptoms Across the Continuum</div>
+        <ul class="slide-bullets">
+          <li>Pain, fatigue, dyspnea, nausea, anxiety, depression — present throughout, not just at end</li>
+          <li>Caregiver burden: often the most underaddressed issue</li>
+          <li>Social determinants: finances, housing, isolation — all affect outcomes</li>
+          <li>Spiritual distress — often unspoken; often the most important thing to the patient</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 18 — The Interdisciplinary Approach</div>
+        <ul class="slide-bullets">
+          <li>The hospice/palliative team: physician, NP, RN, social worker, chaplain, home health aide, volunteer, bereavement counselor</li>
+          <li>Family physician's role: <strong>quarterback, not solo player</strong></li>
+          <li><em>"You don't have to do all of this alone — that's what the team is for"</em></li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 19 — Advance Care Planning</div>
+        <ul class="slide-bullets">
+          <li><strong>POLST/MOLST forms</strong> — actionable medical orders</li>
+          <li><strong>Advance directives</strong> — legal documents</li>
+          <li><strong>Surrogate designation</strong> — who speaks if the patient can't?</li>
+          <li>Pearl: The time to have this conversation is <em>before</em> the crisis, not during it</li>
+          <li>Family physicians are uniquely positioned — you have the relationship and the continuity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section-block s5">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 5</span>
+      <span class="section-title">Objective 4: Imminent Death — What to Expect</span>
+      <span class="section-slides">Slides 20–23</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 20 — Recognizing the Final Days</div>
+        <div class="slide-title">Clinical Signs of Imminent Death (days to hours)</div>
+        <ul class="slide-bullets">
+          <li>Decreased/no oral intake</li>
+          <li>Mottled, cold, cyanotic extremities</li>
+          <li>Cheyne-Stokes breathing; "death rattle" (pooled secretions)</li>
+          <li>Decreased urine output, dark urine</li>
+          <li>Unresponsiveness, eyes half-open</li>
+        </ul>
+        <div style="margin-top:8px;padding:8px 12px;background:rgba(210,153,34,0.08);border-left:3px solid var(--yellow);border-radius:4px;font-size:14px;font-style:italic;">
+          "This is normal. This is not suffering."
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 21 — Comfort Medications at End of Life</div>
+        <div class="slide-title">The Standard Comfort Kit — Anticipatory Prescribing</div>
+        <ul class="slide-bullets">
+          <li><strong>Morphine / oxycodone</strong> — pain and dyspnea (SL or SQ when oral not possible)</li>
+          <li><strong>Lorazepam / midazolam</strong> — anxiety, terminal agitation</li>
+          <li><strong>Haloperidol</strong> — delirium, agitation</li>
+          <li><strong>Glycopyrrolate / hyoscine</strong> — secretion management ("death rattle")</li>
+        </ul>
+        <div style="margin-top:8px;padding:8px 12px;background:rgba(63,185,80,0.08);border-left:3px solid var(--green);border-radius:4px;font-size:14px;">
+          <strong>Key message:</strong> These medications treat suffering. They do not hasten death when used appropriately. (Double effect — well established in medical ethics and law.)
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 22 — What to Tell the Family</div>
+        <ul class="slide-bullets">
+          <li>Normalize the process: what they'll see, what it means</li>
+          <li>"Hunger and thirst decrease — this is the body's way. Forcing fluids can increase discomfort."</li>
+          <li>Hearing may be the last sense to go — encourage them to keep talking</li>
+          <li>It's okay to say goodbye. It's okay to give permission to go.</li>
+          <li>After death: <strong>call hospice first, not 911</strong></li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 23 — Bereavement Care</div>
+        <ul class="slide-bullets">
+          <li>Hospice provides bereavement services for up to 13 months after death</li>
+          <li>Complicated grief is real — family physicians should watch for it</li>
+          <li><em>"Your job doesn't end when the patient dies. The family is still your patient."</em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section-block s6">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-tag">Section 6</span>
+      <span class="section-title">Objective 5: How Hospice Works</span>
+      <span class="section-slides">Slides 24–30</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="section-body">
+      <div class="slide-item">
+        <div class="slide-num">Slide 24 — The Four Levels of Medicare Hospice Care</div>
+        <ul class="slide-bullets">
+          <li><strong>Routine Home Care</strong> — standard; IDT visits, medications, equipment at home</li>
+          <li><strong>Continuous Home Care</strong> — crisis management; near-continuous nursing (8–24 hrs/day) at home</li>
+          <li><strong>General Inpatient Care (GIP)</strong> — acute symptoms that can't be managed at home; short-term inpatient</li>
+          <li><strong>Respite Care</strong> — up to 5 consecutive days inpatient to give caregiver a break</li>
+        </ul>
+        <div class="slide-source">CMS Medicare Benefit Policy Manual Ch. 9; PCNOW Fast Fact</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 25 — What's Covered Under the Medicare Hospice Benefit</div>
+        <ul class="slide-bullets">
+          <li>Nursing visits (RN + LPN)</li>
+          <li>Physician services (hospice medical director)</li>
+          <li>Social work, chaplaincy, volunteer services</li>
+          <li>Home health aide (personal care)</li>
+          <li>Medications related to terminal diagnosis (typically $0 or very low copay)</li>
+          <li>Durable medical equipment: hospital bed, wheelchair, commode, O₂, etc.</li>
+          <li>Bereavement counseling (up to 13 months post-death)</li>
+          <li><strong>NOT covered:</strong> treatments aimed at curing the terminal illness</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 26 — How to Refer: Step by Step</div>
+        <ul class="slide-bullets">
+          <li>1. Identify the patient (Surprise Question + eligibility criteria)</li>
+          <li>2. Have the conversation (REMAP)</li>
+          <li>3. Contact your local hospice agency — they do the intake assessment</li>
+          <li>4. Sign the certification of terminal illness (you don't have to be the hospice physician)</li>
+          <li>5. Stay involved — you remain the attending physician if you choose</li>
+          <li><strong>Tip:</strong> Build a relationship with 1–2 local hospice agencies; know who to call</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 27 — Hospice and Your Practice</div>
+        <ul class="slide-bullets">
+          <li>Myth: "Hospice takes the patient away from me." Reality: You stay the attending physician.</li>
+          <li>Reduces after-hours crisis calls, unnecessary ER visits</li>
+          <li>Better outcomes → better patient satisfaction scores</li>
+        </ul>
+        <div style="margin-top:8px;padding:8px 12px;background:rgba(78,154,241,0.08);border-left:3px solid var(--accent);border-radius:4px;font-size:14px;font-style:italic;">
+          "Patients deserve to die with dignity, at home, with people they love, without unnecessary suffering. You can make that happen."
+        </div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slide 28 — Call to Action / Key Takeaways</div>
+        <ul class="slide-bullets">
+          <li>1. <strong>Ask the Surprise Question</strong> at every serious illness visit</li>
+          <li>2. <strong>Use REMAP</strong> — you have the framework; now practice it</li>
+          <li>3. <strong>Palliative care starts at diagnosis</strong> — don't wait for hospice eligibility</li>
+          <li>4. <strong>Know the signs</strong> — prepare families in advance; comfort kits save crisis calls</li>
+          <li>5. <strong>Hospice is a team</strong> — refer early, stay involved, let them support your patient</li>
+        </ul>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">Slides 29–30 — Resources & Thank You</div>
+        <ul class="slide-bullets">
+          <li>PCNOW Fast Facts (mypcnow.org), CAPC (capc.org), VitalTalk (vitaltalk.org), NHPCO (nhpco.org), AAFP resources</li>
+          <li>Contact info for Dr. Haas (optional)</li>
+          <li>Acknowledgment of hospice workers, families, patients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LITERATURE -->
+  <h2><span class="icon">📚</span>Key Literature Anchors</h2>
+  <div style="background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;">
+    <table class="lit-table">
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Citation</th>
+          <th>Key Finding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="lit-tag">Opening</span></td>
+          <td>Temel JS et al. <em>N Engl J Med.</em> 2010;363(8):733–742</td>
+          <td>Early palliative care → better QoL + longer survival in metastatic NSCLC</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Identification</span></td>
+          <td>PCNOW Fast Fact #360 (Palliative Care Network of Wisconsin)</td>
+          <td>Surprise Question validated for triggering palliative referral</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Identification</span></td>
+          <td><em>BMJ Supportive & Palliative Care.</em> 2022;12:211</td>
+          <td>SQ + PCST together outperform either alone for 12-month mortality prediction</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Communication</span></td>
+          <td>Childers JW et al. <em>JCO Oncology Practice.</em> 2017. PMID: 28445100</td>
+          <td>REMAP framework for goals-of-care conversations</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Communication</span></td>
+          <td>Baile WF et al. <em>Oncologist.</em> 2000;5(4):302–311</td>
+          <td>SPIKES protocol for delivering bad news</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Utilization</span></td>
+          <td>NHPCO Facts & Figures 2024</td>
+          <td>Utilization data, length-of-stay statistics</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">EOL Care</span></td>
+          <td>NICE Guidelines: Care of Dying Adults 2015 (NBK356005)</td>
+          <td>Clinical signs of imminent death; anticipatory medications</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Structure</span></td>
+          <td>CMS Medicare Benefit Policy Manual, Chapter 9</td>
+          <td>Four levels of hospice care, coverage rules</td>
+        </tr>
+        <tr>
+          <td><span class="lit-tag">Structure</span></td>
+          <td>MedPAC March 2025 Report to Congress, Chapter 9</td>
+          <td>Hospice utilization trends and policy analysis</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUESTIONS FOR DR. MIKE -->
+  <h2><span class="icon">❓</span>Questions for Dr. Mike</h2>
+  <p style="color: var(--muted); font-size:14px; margin-bottom: 16px;">These are the key inputs needed before building the actual slides. Bring these to him this week.</p>
+  <div class="q-list">
+    <div class="q-item">
+      <div class="q-num">1</div>
+      <div class="q-text"><strong>Clinical stories:</strong> Do you have 1–2 patient stories you'd be comfortable sharing (de-identified)? A case where early referral made a difference, or one where you wish you'd referred sooner?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">2</div>
+      <div class="q-text"><strong>Communication style:</strong> Do you prefer frameworks like REMAP on slides, or would you rather teach from your own clinical approach and experience?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">3</div>
+      <div class="q-text"><strong>Audience sophistication:</strong> How experienced do you expect the audience to be with palliative care? Rural family docs vs. academic? Any prior hospice exposure assumed?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">4</div>
+      <div class="q-text"><strong>Spiritual/religious dimension:</strong> How much do you want to lean into the spiritual component? Given the Louisiana audience, this may resonate strongly.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">5</div>
+      <div class="q-text"><strong>Tone:</strong> Lecture-style, conversational, or case-based teaching format?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">6</div>
+      <div class="q-text"><strong>Slide aesthetic:</strong> Data-heavy and clinical, or more visual and story-driven?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">7</div>
+      <div class="q-text"><strong>Anything to avoid?</strong> Topics, controversies, anything too sensitive for this particular audience?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">8</div>
+      <div class="q-text"><strong>Personal connection:</strong> What drew you to hospice work? This story — if he's willing to share it — could be a powerful way to open the entire talk.</div>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <h2><span class="icon">🔗</span>Key Resources</h2>
+  <div class="res-grid">
+    <a class="res-card" href="https://www.mypcnow.org" target="_blank">
+      <div class="res-name">PCNOW Fast Facts</div>
+      <div class="res-desc">Palliative Care Network of Wisconsin — free, peer-reviewed clinical reference library</div>
+      <div class="res-url">mypcnow.org</div>
+    </a>
+    <a class="res-card" href="https://www.capc.org" target="_blank">
+      <div class="res-name">CAPC</div>
+      <div class="res-desc">Center to Advance Palliative Care — training, tools, and clinical resources</div>
+      <div class="res-url">capc.org</div>
+    </a>
+    <a class="res-card" href="https://www.vitaltalk.org" target="_blank">
+      <div class="res-name">VitalTalk</div>
+      <div class="res-desc">Evidence-based communication skills training — REMAP, SPIKES, and more</div>
+      <div class="res-url">vitaltalk.org</div>
+    </a>
+    <a class="res-card" href="https://www.nhpco.org" target="_blank">
+      <div class="res-name">NHPCO</div>
+      <div class="res-desc">National Hospice and Palliative Care Organization — Facts & Figures data source</div>
+      <div class="res-url">nhpco.org</div>
+    </a>
+    <a class="res-card" href="https://www.nejm.org/doi/full/10.1056/NEJMoa1000678" target="_blank">
+      <div class="res-name">Temel 2010 (NEJM)</div>
+      <div class="res-desc">The landmark early palliative care trial — cornerstone of the opening argument</div>
+      <div class="res-url">nejm.org</div>
+    </a>
+    <a class="res-card" href="https://www.cms.gov/medicare/payment/fee-for-service-providers/hospice" target="_blank">
+      <div class="res-name">CMS Hospice Benefit</div>
+      <div class="res-desc">Official Medicare hospice benefit coverage, levels of care, and eligibility rules</div>
+      <div class="res-url">cms.gov</div>
+    </a>
+    <a class="res-card" href="https://www.medpac.gov/wp-content/uploads/2025/03/Mar25_Ch9_MedPAC_Report_To_Congress_SEC.pdf" target="_blank">
+      <div class="res-name">MedPAC 2025 Ch. 9</div>
+      <div class="res-desc">Hospice utilization statistics and policy trends for Medicare population</div>
+      <div class="res-url">medpac.gov</div>
+    </a>
+    <a class="res-card" href="https://ascopubs.org/doi/10.1200/JOP.2016.018796" target="_blank">
+      <div class="res-name">REMAP Paper (ASCO)</div>
+      <div class="res-desc">Childers JW et al. — the REMAP goals-of-care conversation framework, JCO 2017</div>
+      <div class="res-url">ascopubs.org</div>
+    </a>
+    <a class="res-card" href="https://lafp.org/79th-annual-assembly-and-exhibition-attendee-registration" target="_blank">
+      <div class="res-name">LAFP Conference Registration</div>
+      <div class="res-desc">79th Annual Assembly — attendee registration (Dr. Mike's is waived as speaker)</div>
+      <div class="res-url">lafp.org</div>
+    </a>
+  </div>
+
+  <!-- LOGISTICS -->
+  <h2><span class="icon">📋</span>Speaker Logistics</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Conference Contact</div>
+      <ul>
+        <li><strong>Ragan LeBlanc</strong> — Executive VP, LAFP</li>
+        <li>📧 rleblanc@lafp.org</li>
+        <li>📞 Cell: 225.268.2246</li>
+        <li>📞 Office: 225.923.3313</li>
+        <li>919 Tara Blvd, Baton Rouge LA 70806</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Hotel Options</div>
+      <ul>
+        <li><strong>Sandestin Golf & Beach Resort</strong></li>
+        <li>Group Code: 25247Y</li>
+        <li>Book: sandestin.com/25247Y | 800-320-8115</li>
+        <li><strong>Hotel Effie</strong></li>
+        <li>Group Code: LFP</li>
+        <li>Book: bit.ly/LAFP2025 | 850-267-4424</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Deliverables Checklist</div>
+      <ul class="checklist" style="padding:0;">
+        <li><span class="ck">⚠️</span> Faculty Contract (fillable PDF)</li>
+        <li><span class="ck">⚠️</span> Speaker Travel Acknowledgement Form</li>
+        <li><span class="ck">⚠️</span> Speaker Requirement Form</li>
+        <li><span class="ck">⚠️</span> All forms due: <strong>May 22, 2026</strong></li>
+        <li><span class="ck">📊</span> PowerPoint slides due: <strong>June 23, 2026</strong></li>
+        <li><span class="ck">📄</span> 150 copies if printing handouts (mail to Ragan)</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Dr. Mike Haas — Hospice Demystified Talk Portal · Built by LClAwRS 🦞 · Updated May 2026
+</footer>
+
+<script>
+  function toggle(header) {
+    const body = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    header.classList.toggle('open', !isOpen);
+    icon.textContent = isOpen ? '▶' : '▼';
+  }
+</script>
+</body>
+</html>
